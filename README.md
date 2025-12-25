@@ -1,8 +1,9 @@
-CudaText plugin for 'Ruff' tool integration.
+# CudaText plugin for 'Ruff' tool integration
 
 ## 🎯 What is Ruff?
 
 Ruff is an **extremely fast Python linter and code formatter** written in Rust, and it's quickly becoming the new standard in Python development. It's **10-100x faster** than traditional tools and replaces multiple tools in one:
+
 - ✅ flake8 (linting)
 - ✅ black (formatting)
 - ✅ isort (import sorting)
@@ -10,6 +11,19 @@ Ruff is an **extremely fast Python linter and code formatter** written in Rust, 
 - ✅ And 50+ other tools!
 
 Major projects like **FastAPI, Pydantic, pandas, and numpy** have already migrated to Ruff.
+
+## 📦 Installation
+
+### Install the Plugin
+1. In CudaText: **Plugins > Addon Manager > Install**
+2. Search for "Ruff" and install
+
+### Install Ruff
+- **Windows**: Download `ruff.exe` from [releases](https://github.com/astral-sh/ruff/releases) → place in `CudaText/Ruff` folder
+- **Linux**: `curl -LsSf https://astral.sh/ruff/install.sh | sh`
+- **macOS**: `brew install ruff`
+
+Ruff must be in system PATH or in CudaText/Ruff folder (portable mode).
 
 ## ✨ Plugin Features
 
@@ -21,8 +35,9 @@ Major projects like **FastAPI, Pydantic, pandas, and numpy** have already migrat
 - 🌍 **Cross-platform** - Windows, Linux, macOS fully supported
 
 ### Advanced Commands
-- 🔧 **Fix command** - Applies auto-fixes directly in buffer with full undo support (Ctrl+Z)
-- 🎨 **Format command** - Formats code in buffer with full undo support (Ctrl+Z)
+- 🔧 **Fix command** - Apply auto-fixes directly in buffer (safe or unsafe mode)
+- ⚠️ **Unsafe fixes** - Includes potentially breaking changes (requires confirmation)
+- 🎨 **Format command** - Format code in buffer with full undo support (Ctrl+Z)
 - 📊 **Smart severity mapping** - E/F codes show as errors (red), others as warnings (yellow)
 - 🏷️ **Error codes in messages** - Shows `[F401]` for easy identification
 - 📝 **Comprehensive help** - Built-in documentation with examples
@@ -34,8 +49,28 @@ Major projects like **FastAPI, Pydantic, pandas, and numpy** have already migrat
 - 🔊 **Diagnostic logging** - Helpful console output for debugging
 - 📦 **Portable-ready** - Works great with CudaText portable installations
 
-## 📚 Additional Info
+## 🚀 Usage
 
+### Menu Commands
+- **Options > Settings-plugins > Ruff > Config** - Configure rules
+- **Plugins > Ruff > Fix current file** - Apply safe auto-fixes
+- **Plugins > Ruff > Fix current file (unsafe)** - Apply unsafe fixes (with confirmation)
+- **Plugins > Ruff > Format current file** - Format code
+- **Options > Settings-plugins > Ruff > Help** - Show help
+
+### Configuration
+Create `settings/ruff_config.json` to customize rules:
+```json
+{
+  "ignore": ["E501", "W191"],
+  "select": ["E", "W", "F", "B", "I"]
+}
+```
+
+Plugin settings take precedence over project `pyproject.toml`/`ruff.toml`.
+
+## 📚 Additional Info
 - **Ruff project**: https://github.com/astral-sh/ruff
 - **Ruff documentation**: https://docs.astral.sh/ruff/
-- **Plugin license**: MIT
+- **Author**: Bruno Eduardo
+- **License**: MIT
