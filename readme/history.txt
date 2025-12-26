@@ -1,0 +1,18 @@
+2025.12.26
++ add: caret position preservation in Fix/Format commands
++ add: syntax error detection in Fix/Format with clear error messages
++ add: timeout configuration option in ruff_config.json (default: 30 seconds)
+* change: bundled executable path from 'Ruff' to 'tools/Ruff' (thanks Alexey-T)
+* change: simplified stdin-filename fallback using 'or' operator (thanks Alexey-T)
+* change: Fix/Format commands now restricted to Python lexer only (thanks Alexey-T)
+- fix: line state preservation now uses PROP_LINE_STATE instead of PROP_LINE_STATES
+
+2025.12.25
++ add: Fix current file (unsafe) command with confirmation dialog
++ add: line state preservation when using Fix/Fix (unsafe)/Format commands
+* change: menu items moved to different locations (Config/Help in Options, Fix/Format in Plugins)
+- fix: regex pattern now matches syntax error codes with hyphens (e.g., invalid-syntax)
+- fix: ed.get_line_len() usage instead of len(ed.get_text_line()) (thanks Alexey-T)
+
+2025.12.24
+initial version
