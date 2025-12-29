@@ -1,3 +1,6 @@
+2025.12.29
+- fix: undo now works in single step for fix/format commands (EDACTION_UNDOGROUP)
+
 2025.12.28
 + add: dynamic undo hotkey detection in fix/format messages
 * change: lazy loading now handled by CudaLint framework (removed on_lexer/on_open handlers)
