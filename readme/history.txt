@@ -1,3 +1,6 @@
+2025.12.31
+- fix: eliminate code duplication in caret position handling
+
 2025.12.29
 - fix: undo now works in single step for fix/format commands (EDACTION_UNDOGROUP)
 

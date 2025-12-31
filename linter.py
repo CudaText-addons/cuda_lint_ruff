@@ -361,6 +361,11 @@ class Command:
             print("Ruff: Applying changes - No changes (skipped)")
             return
 
+        # Save caret position
+        carets = ed.get_carets()
+        if carets:
+            caret_x, caret_y = carets[0][:2]
+
         # Begin undo group (all changes in single undo step)
         ed.action(EDACTION_UNDOGROUP_BEGIN)
 
@@ -372,11 +377,6 @@ class Command:
 
                 # Save current line states
                 old_states = ed.get_prop(PROP_LINE_STATES)
-
-                # Save caret position
-                carets = ed.get_carets()
-                if carets:
-                    caret_x, caret_y = carets[0][:2]
 
                 # Single fast replace
                 line_count = ed.get_line_count()
@@ -401,21 +401,6 @@ class Command:
                             # Line changed, mark as changed
                             ed.set_prop(PROP_LINE_STATE, (i, LINESTATE_CHANGED))
 
-                # Restore caret position
-                if carets:
-                    # Ensure caret is within valid range
-                    new_line_count = ed.get_line_count()
-                    if caret_y >= new_line_count:
-                        caret_y = new_line_count - 1
-
-                    new_line_len = ed.get_line_len(caret_y)
-                    if caret_x > new_line_len:
-                        caret_x = new_line_len
-
-                    ed.set_caret(caret_x, caret_y)
-
-                ed.action(EDACTION_UPDATE)
-
                 return
 
             # Slow path: Line count changed (5% of cases)
@@ -423,11 +408,6 @@ class Command:
             print(f"Ruff: Applying changes - Slow path (Myers diff: {len(old_lines)} -> {len(new_lines)} lines)")
 
             import difflib
-
-            # Save caret position
-            carets = ed.get_carets()
-            if carets:
-                caret_x, caret_y = carets[0][:2]
 
             matcher = difflib.SequenceMatcher(None, old_lines, new_lines)
             opcodes = list(matcher.get_opcodes())
@@ -480,6 +460,7 @@ class Command:
                 # Replace last line with itself + newline
                 ed.replace(0, last_line_idx, last_line_len, last_line_idx, last_line_text + '\n')
 
+        finally:
             # Restore caret position
             if carets:
                 # Ensure caret is within valid range
@@ -493,9 +474,9 @@ class Command:
 
                 ed.set_caret(caret_x, caret_y)
 
+            # Refresh editor view
             ed.action(EDACTION_UPDATE)
 
-        finally:
             # End undo group
             ed.action(EDACTION_UNDOGROUP_END)
 
