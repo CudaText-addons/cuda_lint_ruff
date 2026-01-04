@@ -655,5 +655,5 @@ class Command:
             f"{version_info}"
             "DOCUMENTATION:\n"
             "https://docs.astral.sh/ruff/",
-            MB_OK
+            MB_OK | MB_ICONINFO
         )
