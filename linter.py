@@ -522,7 +522,7 @@ class Command:
         if linter.ignore_codes:
             cmd.extend(['--ignore', ','.join(linter.ignore_codes)])
 
-        cmd.extend(['--stdin-filename', ed.get_filename() or 'untitled.py'])
+        cmd.extend(['--stdin-filename', ed.get_prop(PROP_FN, '') or 'untitled.py'])
 
         try:
             result = subprocess.run(
@@ -567,7 +567,7 @@ class Command:
 
         cmd = [linter.ruff_path, 'format', '-']
 
-        cmd.extend(['--stdin-filename', ed.get_filename() or 'untitled.py'])
+        cmd.extend(['--stdin-filename', ed.get_prop(PROP_FN, '') or 'untitled.py'])
 
         try:
             result = subprocess.run(
